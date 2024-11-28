@@ -4,7 +4,7 @@ export interface ISource {
 }
 
 export interface IArticulo {
-    source: ISource[],
+    source: ISource,
     author?: string,
     title: string,
     description?: string,
