@@ -13,15 +13,23 @@
     </ion-toolbar>
   </ion-header>
 
-<ion-list>
-  <ion-item *ngFor="let element of listaNoticias">
-    
-    <ion-checkbox></ion-checkbox>
-    <ion-card>
-      <ion-title color="primary">{{ element.source.name }}</ion-title>
-      <ion-text>{{ element.title }}</ion-text>
-    </ion-card>
-  </ion-item>
-</ion-list>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Noticias de hoy</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let element of listaNoticias">
+          
+          <ion-checkbox slot="start" [checked]="articuloEnArray(element)" (ionChange)="actualizarNoticas(element)"></ion-checkbox>
+          <ion-label slot="end">
+            <ion-label color="primary">{{ element.source.name }}</ion-label>
+            <ion-label>{{ element.title }}</ion-label>
+          </ion-label>
+          
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>

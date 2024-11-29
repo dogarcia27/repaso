@@ -1,6 +1,7 @@
+import { GestionArticulosService } from './../services/gestion-articulos.service';
 import { Component, OnInit } from '@angular/core';
 import { IArticulo } from '../interfaces/iarticulo';
-import { GestionArticulosService } from '../services/gestion-articulos.service';
+import { LeerJsonService } from '../services/json/leer-json.service';
 
 @Component({
   selector: 'app-tab1',
@@ -9,18 +10,21 @@ import { GestionArticulosService } from '../services/gestion-articulos.service';
 })
 export class Tab1Page implements OnInit {
 
-  // Array para pruebas
-  arrayPrueba: string[] = [
-    "esto es un array de pruebas",
-    "elemento 1 del array",
-    "elemento 2 del array"
-  ]
   // Array inicial de noticias
   listaNoticias!: IArticulo[];
+  listaLectura!: IArticulo[];
 
-  constructor(public gestionArticulos: GestionArticulosService) {}
+  constructor(public lectorJson: LeerJsonService, public gestorArticulos: GestionArticulosService) {}
 
     ngOnInit() {
-      this.listaNoticias = this.gestionArticulos.getListaNoticias();
-  }
+      this.listaNoticias = this.lectorJson.getListaNoticias();
+    }
+
+    actualizarNoticas(articulo: IArticulo) { // ese parametro quizas haya que quitarlo
+      this.gestorArticulos.actualizarListaLectura(articulo);
+    }
+
+    articuloEnArray(articulo: IArticulo) {
+      return this.gestorArticulos.buscarIndice(articulo) != -1;
+    }
 }

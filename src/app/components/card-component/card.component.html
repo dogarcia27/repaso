@@ -1,13 +1,22 @@
 <ion-card>
   <ion-card-header>
-    <ion-card-title>Card Title</ion-card-title>
-    <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+    <ion-card-title>{{ articulo.source.name }}</ion-card-title>
+    <ion-card-subtitle>{{ articulo.title }}</ion-card-subtitle>
   </ion-card-header>
 
   <ion-card-content>
-    Here's a small text description for the card content. Nothing more, nothing less.
+    <ion-img [src]="articulo.urlToImage"></ion-img>
+    <ion-text>{{ articulo.description }}</ion-text>
   </ion-card-content>
 
-  <ion-button fill="clear">Action 1</ion-button>
-  <ion-button fill="clear">Action 2</ion-button>
+  <ion-item>
+    <ion-label slot="start"><a>Leer más</a></ion-label>
+    <ion-icon size="large" slot="end" name="trash-outline" (click)="alertaBorrado()"></ion-icon>
+  </ion-item>
+
+  <!--
+  <ion-button fill="clear" slot="start">Leer más</ion-button>
+    <ion-button fill="clear" slot="end">Borrar</ion-button>
+  -->
+
 </ion-card>
