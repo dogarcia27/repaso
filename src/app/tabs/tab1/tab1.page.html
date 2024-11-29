@@ -22,7 +22,7 @@
         <ion-item *ngFor="let element of listaNoticias">
           
           <ion-checkbox slot="start" [checked]="articuloEnArray(element)" (ionChange)="actualizarNoticas(element)"></ion-checkbox>
-          <ion-label slot="end">
+          <ion-label>
             <ion-label color="primary">{{ element.source.name }}</ion-label>
             <ion-label>{{ element.title }}</ion-label>
           </ion-label>

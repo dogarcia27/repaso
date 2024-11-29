@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GestionArticulosService } from '../services/gestion-articulos.service';
-import { IArticulo } from '../interfaces/iarticulo';
+import { GestionArticulosService } from '../../services/gestion-articulos.service';
+import { IArticulo } from '../../interfaces/iarticulo';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -18,11 +18,14 @@ export class Tab2Page implements OnInit {
   // array lista de noticias para leer
   listaLectura: IArticulo[] = []
 
-  constructor(public gestorArticulos: GestionArticulosService) {}
+  constructor(public gestorArticulos: GestionArticulosService) {
+    
+  }
 
   ngOnInit(): void {
     this.gestorArticulos.getListaLecturaObservable().subscribe(data => {
       this.listaLectura = data;
     });
   }
+
 }

@@ -1,7 +1,7 @@
-import { GestionArticulosService } from './../services/gestion-articulos.service';
+import { GestionArticulosService } from '../../services/gestion-articulos.service';
 import { Component, OnInit } from '@angular/core';
-import { IArticulo } from '../interfaces/iarticulo';
-import { LeerJsonService } from '../services/json/leer-json.service';
+import { IArticulo } from '../../interfaces/iarticulo';
+import { LeerJsonService } from '../../services/json/leer-json.service';
 
 @Component({
   selector: 'app-tab1',

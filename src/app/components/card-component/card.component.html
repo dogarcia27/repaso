@@ -10,13 +10,7 @@
   </ion-card-content>
 
   <ion-item>
-    <ion-label slot="start"><a>Leer más</a></ion-label>
+    <ion-label slot="start"><a [href]="articulo.url">Leer más</a></ion-label>
     <ion-icon size="large" slot="end" name="trash-outline" (click)="alertaBorrado()"></ion-icon>
   </ion-item>
-
-  <!--
-  <ion-button fill="clear" slot="start">Leer más</ion-button>
-    <ion-button fill="clear" slot="end">Borrar</ion-button>
-  -->
-
 </ion-card>

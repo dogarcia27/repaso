@@ -1,4 +1,6 @@
+import { GestionArticulosService } from './../../services/gestion-articulos.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { AlertController, ModalController } from '@ionic/angular';
 import { IArticulo } from 'src/app/interfaces/iarticulo';
 
 @Component({
@@ -11,9 +13,32 @@ export class CardComponent  {
 
   @Input() articulo!: IArticulo;
 
-  constructor() { }
+  constructor(private gestorNoticias: GestionArticulosService, private alerta: AlertController, private modal: ModalController) { }
 
-  alertaBorrado() {
-    
+  async alertaBorrado() {
+    const alert = await this.alerta.create({
+      header: 'Borrar noticia',
+      message: '¿Desea borrar la noticia?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel: blah');
+          },
+        },
+        {
+          text: 'Borrar',
+          handler: () => {
+            console.log();
+            this.gestorNoticias.actualizarListaLectura(this.articulo);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
   }
+
 }
