@@ -23,10 +23,15 @@ export class GestionArticulosService {
   private listaLecturaSub$ = new BehaviorSubject<IArticulo[]>([]);
   private listaLecturaObs$ = this.listaLecturaSub$.asObservable(); 
 
+  /**
+   * Constructor
+   * @param storMan - Servicio que controla el almacenamiento local
+   * Implementamos una función asíncrona que inicializa el array con los datos almacenados (si los hay)
+   */
   constructor(private storMan: StoreManagerService) {
     (async () => {
       const lista = await this.storMan.getObject('lista');
-      this.listaLectura = lista || [];
+      this.listaLectura = lista || [];    // si lista es null o indefined sigue con array vacío (fallback)
       this.listaLecturaSub$.next(this.listaLectura);
     })();
   }
@@ -52,7 +57,7 @@ export class GestionArticulosService {
     } else {
       this.listaLectura.splice(index, 1);
     }
-    // actualizamos el valor del subject y storMan
+    // actualizamos el valor del subject y del storman (storageManager)
     this.storMan.setObject('lista', this.listaLectura);
     this.listaLecturaSub$.next(this.listaLectura);
   }

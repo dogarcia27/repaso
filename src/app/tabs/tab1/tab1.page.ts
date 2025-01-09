@@ -1,3 +1,4 @@
+import { ApiRestService } from './../../services/api-rest.service';
 /*
  * Dorkaitz García Martínez
  * Birt - DAM - Desarrollo de interfaces (2024-2025)
@@ -9,7 +10,6 @@
 import { GestionArticulosService } from '../../services/gestion-articulos.service';
 import { Component, OnInit } from '@angular/core';
 import { IArticulo } from '../../interfaces/iarticulo';
-import { LeerJsonService } from '../../services/json/leer-json.service';
 
 @Component({
   selector: 'app-tab1',
@@ -30,14 +30,14 @@ export class Tab1Page implements OnInit {
    * @param lectorJson - servicio de lectura de archivo externo
    * @param gestorArticulos - servicio que gestiona las noticias que queremos leer
    */
-  constructor(public lectorJson: LeerJsonService, public gestorArticulos: GestionArticulosService) {}
+  constructor(private apiRest: ApiRestService, public gestorArticulos: GestionArticulosService) {}
 
   /**
    * Método que se ejecuta al inicializar el componente
    * @returns void
    */
     ngOnInit() {
-      this.listaNoticias = this.lectorJson.getListaNoticias();
+      this.listaNoticias = this.apiRest.getListaNoticias();
     }
 
     /**
