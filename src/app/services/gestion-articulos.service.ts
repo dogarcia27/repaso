@@ -7,8 +7,9 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IArticulo } from 'src/app/interfaces/iarticulo';
+import { StoreManagerService } from './storage-manager.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +20,15 @@ import { IArticulo } from 'src/app/interfaces/iarticulo';
 export class GestionArticulosService {
 
   private listaLectura: IArticulo[] = [];
-  private listaLecturaSub$ = new Subject<IArticulo[]>();
+  private listaLecturaSub$ = new BehaviorSubject<IArticulo[]>([]);
   private listaLecturaObs$ = this.listaLecturaSub$.asObservable(); 
 
-  constructor() {
-    
+  constructor(private storMan: StoreManagerService) {
+    (async () => {
+      const lista = await this.storMan.getObject('lista');
+      this.listaLectura = lista || [];
+      this.listaLecturaSub$.next(this.listaLectura);
+    })();
   }
 
   /**
@@ -40,8 +45,6 @@ export class GestionArticulosService {
    */
   actualizarListaLectura(article: IArticulo) {
     
-    // Definimos observable
-    let observableListaLectura: Observable<IArticulo[]>;
     const index = this.buscarIndice(article);
     // Si el articulo no está se añade al array, en caso contrario se elimina del array
     if (index == -1){
@@ -49,7 +52,8 @@ export class GestionArticulosService {
     } else {
       this.listaLectura.splice(index, 1);
     }
-    // actualizamos el valor del subject
+    // actualizamos el valor del subject y storMan
+    this.storMan.setObject('lista', this.listaLectura);
     this.listaLecturaSub$.next(this.listaLectura);
   }
 
